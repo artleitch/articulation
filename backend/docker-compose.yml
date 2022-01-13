@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+
+# infrastructure ===============================================================
+  articulation-postgres:
+    container_name: articulation-postgres
+    image: postgres:latest
+    ports:
+      - 3306:5432
+    expose:
+      - 3306
+    restart: always
+    env_file:
+      - ./docker.env
+    networks:
+      - articulation-network
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  articulation-be:
+    container_name: articulation-be
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    env_file:
+      - ./docker.env
+    depends_on:
+      - articulation-postgres
+    networks:
+      - articulation-network
+
+# Service Discovery Network ====================================================
+networks:
+    articulation-network:
+        external:
+          name: articulation-network
