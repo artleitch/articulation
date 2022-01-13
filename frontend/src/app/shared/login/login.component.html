@@ -1,10 +1,8 @@
-<h1>Log in</h1>
-<a [routerLink]="['/']">Home</a>
-
 <form (ngSubmit)="onSubmit()" ngNativeValidate>
-    <div class="form-group">
-        <label for="email">Email</label>
+    <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
         <input
+            matInput
             [(ngModel)]="user.username"
             name="username"
             required
@@ -12,10 +10,12 @@
             id="username"
             placeholder="enter your username"
         />
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
         <input
+            matInput
             [(ngModel)]="user.password"
             name="password"
             type="password"
@@ -24,7 +24,7 @@
             id="password"
             placeholder="enter a password"
         />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <a [routerLink]="['/']" class="btn btn-success">Cancel</a>
+    </mat-form-field>
+
+    <button mat-button type="submit">Submit</button>
 </form>

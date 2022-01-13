@@ -6,16 +6,18 @@ import {AppComponent} from './app.component'
 
 import {StoreModule} from '@ngrx/store'
 import {FormsModule} from '@angular/forms'
+import {MatSelectModule} from '@angular/material/select'
 
 import * as fromApp from './shared/store/app.reducer'
 import {EffectsModule} from '@ngrx/effects'
 import {AuthenticationEffects} from './authentication/store/authentication.effects'
 import {AuthenticationModule} from './authentication/authentication.module'
-import {LoginModule} from './authentication/login/login.module'
 import {AuthenticationService} from './authentication/authentication.service'
 import {HTTP_INTERCEPTORS} from '@angular/common/http'
-import {TokenInterceptor} from './shared/token/token.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import {TokenInterceptor} from './shared/token/token.interceptor'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {HeaderModule} from './shared/header/header.module'
+import {LoginModule} from './shared/login/login.module'
 
 @NgModule({
     declarations: [AppComponent],
@@ -23,11 +25,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
         BrowserModule,
         AppRoutingModule,
         AuthenticationModule,
-        LoginModule,
         StoreModule.forRoot(fromApp.appReducer),
         EffectsModule.forRoot([AuthenticationEffects]),
         FormsModule,
         BrowserAnimationsModule,
+        HeaderModule,
+        LoginModule,
     ],
     providers: [
         AuthenticationService,

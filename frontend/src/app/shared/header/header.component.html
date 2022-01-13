@@ -1,0 +1,16 @@
+<header>
+    <h1>Articulation</h1>
+    <mat-form-field>
+        <mat-label>Practice Language</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let lang of practiceLanguages" [value]="lang.value">
+                {{ lang.label }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="isAuthenticated | async">
+        <span>Hi {{ username | async }}</span>
+        <button (click)="logout()" mat-button color="primary">Logout</button>
+    </div>
+    <button (click)="openLogin()" *ngIf="!(isAuthenticated | async)" mat-button color="primary">Login</button>
+</header>
