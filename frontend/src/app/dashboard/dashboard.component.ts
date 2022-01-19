@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {Store} from '@ngrx/store'
 import {lang} from 'moment'
-import {Observable} from 'rxjs'
+import {Observable, Subscription} from 'rxjs'
 import {map, take} from 'rxjs/operators'
 import {AppState} from '../shared/store/app.reducer'
 import {GetWords, GetWordsPayload} from '../shared/word/store/word.actions'
@@ -35,12 +35,7 @@ export class DashboardComponent {
     get words() {
         return this.words$.pipe(
             map((wordState) => {
-                return wordState.words.map((word) => {
-                    return {
-                        originWord: word.originWord,
-                        destinationWord: word.destinationWord,
-                    }
-                })
+                return wordState.words
             })
         )
     }

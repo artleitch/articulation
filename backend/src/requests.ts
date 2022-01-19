@@ -48,9 +48,24 @@ export class CreateWordRequest {
     @IsNotEmpty({message: 'The destination word is required'})
     readonly destinationWord: string
 
-    @IsNotEmpty({message: 'The language id is required'})
-    readonly languageId: string
+    @IsNotEmpty({message: 'The language is required'})
+    readonly language: Partial<Language>
 
     @IsNotEmpty({message: 'The word type is required'})
+    readonly type: WordTypeEnum
+}
+
+interface WordLanguage extends Partial<Language> {
+    id: string
+}
+
+export class UpdateWordRequest {
+    @IsNotEmpty({message: 'The word id is required'})
+    readonly id: string
+
+    readonly language: WordLanguage
+
+    readonly originWord: string
+    readonly destinationWord: string
     readonly type: WordTypeEnum
 }

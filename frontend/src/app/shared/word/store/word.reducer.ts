@@ -23,15 +23,25 @@ export const wordReducer: (state: WordState, action: WordActions.WordActions) =>
         }
 
         case WordActions.CREATE_WORD_SUCCESS: {
-            return {...state, currentWord: action.payload}
+            return {...state, currentWord: {...action.payload}}
         }
 
-        case WordActions.GET_WORDS: {
-            return {...state}
+        case WordActions.GET_WORD_SUCCESS: {
+            return {...state, currentWord: {...action.payload}}
+        }
+
+        case WordActions.UPDATE_WORD_SUCCESS: {
+            return {...state, currentWord: {...action.payload}}
         }
 
         case WordActions.GET_WORDS_SUCCESS: {
-            return {...state, words: action.payload}
+            return {...state, words: [...action.payload]}
+        }
+
+        case WordActions.DELETE_WORD_SUCCESS: {
+            const words = [...state.words].filter((word) => word.id !== action.payload)
+
+            return {...state, words: [...words]}
         }
 
         case WordActions.UPDATE_LOADING: {

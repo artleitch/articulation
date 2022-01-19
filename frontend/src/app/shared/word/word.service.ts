@@ -17,6 +17,11 @@ export class WordService {
         return this.http.post<Word>(url, word)
     }
 
+    getWord = (wordId: string): Observable<Word> => {
+        const url = `${this.baseDomain}/${wordId}`
+        return this.http.get<Word>(`${url}`)
+    }
+
     getWords = (getWordsOptions: GetWordsPayload): Observable<Word[]> => {
         const url = `${this.baseDomain}`
         let queryString = '?'
@@ -32,6 +37,17 @@ export class WordService {
             // const value = getWordsOptions[key] as unknown
         })
         return this.http.get<Word[]>(`${url}${queryString}`)
+    }
+
+    updateWord = (word: Word): Observable<Word> => {
+        // TODO Check that word has ID
+        const url = `${this.baseDomain}/${word.id}`
+        return this.http.post<Word>(`${url}`, word)
+    }
+
+    deleteWord = (wordId: string): Observable<any> => {
+        const url = `${this.baseDomain}/${wordId}`
+        return this.http.delete<any>(`${url}`)
     }
 
     /*

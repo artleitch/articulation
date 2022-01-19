@@ -1,3 +1,5 @@
 <h2>show grid of current words to practice</h2>
 
-{{ words | async | json }}
+<div class="word-cards">
+    <app-word-card [word]="word" *ngFor="let word of words | async"></app-word-card>
+</div>

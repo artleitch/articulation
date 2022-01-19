@@ -1,8 +1,10 @@
+import {Language} from '../language/language.model'
+
 export interface Word {
     id?: string
     originWord: string
     destinationWord: string
-    languageId: string
+    language: Partial<Language>
     type: WordTypeEnum
 }
 

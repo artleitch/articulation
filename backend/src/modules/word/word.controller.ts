@@ -1,6 +1,7 @@
 import {Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards} from '@nestjs/common'
 import {WordTypeEnum} from 'src/entities/word.entity'
-import {CreateWordRequest} from 'src/requests'
+import {CreateWordRequest, UpdateWordRequest} from 'src/requests'
+import {UpdateResult} from 'typeorm'
 import {JWTGuard} from '../authentication/jwt.guard'
 import {CreateWordOptions, GetWordsOptions, WordService} from './word.service'
 
@@ -36,12 +37,14 @@ export class WordController {
         if (types) options.types = Array.isArray(types) ? types : [types]
         return this.wordService.getWords(options)
     }
-    @Post('')
-    public async updateWord(): Promise<any> {
-        return Promise.resolve()
+    @Post('/:wordId')
+    public async updateWord(@Body() body: UpdateWordRequest, @Param('wordId') wordId): Promise<UpdateResult> {
+        return this.wordService.updateWord(wordId, body)
     }
-    @Delete('')
-    public async deleteWord(): Promise<any> {
-        return Promise.resolve()
+
+    @Delete('/:wordId')
+    @UseGuards(JWTGuard)
+    public async deleteWord(@Param('wordId') wordId: string) {
+        return this.wordService.deleteWord(wordId)
     }
 }

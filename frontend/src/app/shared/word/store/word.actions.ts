@@ -23,7 +23,7 @@ export const UPDATE_LOADING = '[WORD] UPDATE_LOADING'
 export interface CreateWordPayload {
     originWord: string
     destinationWord: string
-    languageId: string
+    language: Partial<Language>
     type: WordTypeEnum
 }
 
@@ -53,13 +53,13 @@ export class CreateWordFailure implements Action {
 export class GetWord implements Action {
     readonly type = GET_WORD
 
-    constructor() {}
+    constructor(public payload: string) {}
 }
 
 export class GetWordSuccess implements Action {
     readonly type = GET_WORD_SUCCESS
 
-    constructor() {}
+    constructor(public payload: Word) {}
 }
 
 export class GetWordFailure implements Action {
@@ -89,13 +89,13 @@ export class GetWordsFailure implements Action {
 export class UpdateWord implements Action {
     readonly type = UPDATE_WORD
 
-    constructor() {}
+    constructor(public payload: Word) {}
 }
 
 export class UpdateWordSuccess implements Action {
     readonly type = UPDATE_WORD_SUCCESS
 
-    constructor() {}
+    constructor(public payload: Word) {}
 }
 
 export class UpdateWordFailure implements Action {
@@ -107,13 +107,13 @@ export class UpdateWordFailure implements Action {
 export class DeleteWord implements Action {
     readonly type = DELETE_WORD
 
-    constructor() {}
+    constructor(public payload: string) {}
 }
 
 export class DeleteWordSuccess implements Action {
     readonly type = DELETE_WORD_SUCCESS
 
-    constructor() {}
+    constructor(public payload: string) {}
 }
 
 export class DeleteWordFailure implements Action {

@@ -46,6 +46,40 @@ export class WordEffects {
             })
         )
     })
+    getWord = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.GET_WORD),
+            map((action: WordActions.GetWord) => action.payload),
+            switchMap((payload) => {
+                return this.wordService.getWord(payload).pipe(
+                    map((response: Word) => {
+                        return new WordActions.CreateWordSuccess(response)
+                    })
+                )
+            }),
+            catchError(() => {
+                return of(new WordActions.CreateWordFailure())
+            })
+        )
+    })
+
+    getWordSuccess = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.GET_WORD_SUCCESS),
+            map(() => {
+                return new WordActions.UpdateLoading(false)
+            })
+        )
+    })
+
+    getWordFailure = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.GET_WORD_FAILURE),
+            map(() => {
+                return new WordActions.UpdateLoading(false)
+            })
+        )
+    })
 
     getWords = createEffect(() => {
         return this.actions$.pipe(
@@ -76,6 +110,76 @@ export class WordEffects {
     getWordsFailure = createEffect(() => {
         return this.actions$.pipe(
             ofType(WordActions.GET_WORDS_FAILURE),
+            map(() => {
+                return new WordActions.UpdateLoading(false)
+            })
+        )
+    })
+
+    updateWord = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.UPDATE_WORD),
+            map((action: WordActions.UpdateWord) => action.payload),
+            switchMap((payload) => {
+                return this.wordService.updateWord(payload).pipe(
+                    map((response) => {
+                        return new WordActions.UpdateWordSuccess(payload)
+                    })
+                )
+            }),
+            catchError(() => {
+                return of(new WordActions.UpdateWordFailure())
+            })
+        )
+    })
+
+    updateWordSuccess = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.UPDATE_WORD_SUCCESS),
+            map(() => {
+                return new WordActions.UpdateLoading(false)
+            })
+        )
+    })
+
+    updateWordFailure = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.UPDATE_WORD_FAILURE),
+            map(() => {
+                return new WordActions.UpdateLoading(false)
+            })
+        )
+    })
+
+    deleteWord = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.DELETE_WORD),
+            map((action: WordActions.DeleteWord) => action.payload),
+            switchMap((payload) => {
+                return this.wordService.deleteWord(payload).pipe(
+                    map((response) => {
+                        return new WordActions.DeleteWordSuccess(payload)
+                    })
+                )
+            }),
+            catchError(() => {
+                return of(new WordActions.DeleteWordFailure())
+            })
+        )
+    })
+
+    deleteWordSuccess = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.DELETE_WORD_SUCCESS),
+            map(() => {
+                return new WordActions.UpdateLoading(false)
+            })
+        )
+    })
+
+    deleteWordFailure = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(WordActions.DELETE_WORD_FAILURE),
             map(() => {
                 return new WordActions.UpdateLoading(false)
             })

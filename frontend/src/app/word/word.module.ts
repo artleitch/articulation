@@ -17,6 +17,7 @@ import {MatSelectModule} from '@angular/material/select'
         RouterModule,
         MatButtonModule,
         MatSelectModule,
+        RouterModule,
     ],
     declarations: [WordComponent],
 })
