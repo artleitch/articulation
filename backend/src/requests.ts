@@ -1,4 +1,6 @@
-import {IsNotEmpty, MinLength} from 'class-validator'
+import {IsArray, IsNotEmpty, MinLength} from 'class-validator'
+import {Language} from './entities/language.entity'
+import {WordTypeEnum} from './entities/word.entity'
 
 export class LoginRequest {
     @IsNotEmpty({message: 'A username is required'})
@@ -20,4 +22,35 @@ export class RegisterRequest {
 export class RefreshRequest {
     @IsNotEmpty({message: 'The refresh token is required'})
     readonly refreshToken: string
+}
+
+export class CreateLanguageRequest {
+    @IsNotEmpty({message: 'The language code is required'})
+    readonly languageCode: string
+}
+
+export class UpdateLanguageRequest {
+    @IsNotEmpty({message: 'The language code is required'})
+    readonly languageCode: string
+    @IsNotEmpty({message: 'The language id is required'})
+    readonly id: string
+}
+
+export class UpdateUserRequest {
+    @IsArray()
+    readonly practiceLanguageIds: string[]
+}
+
+export class CreateWordRequest {
+    @IsNotEmpty({message: 'The origin word is required'})
+    readonly originWord: string
+
+    @IsNotEmpty({message: 'The destination word is required'})
+    readonly destinationWord: string
+
+    @IsNotEmpty({message: 'The language id is required'})
+    readonly languageId: string
+
+    @IsNotEmpty({message: 'The word type is required'})
+    readonly type: WordTypeEnum
 }

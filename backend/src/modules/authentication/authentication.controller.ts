@@ -4,7 +4,7 @@ import {Body, Controller, Get, Post, Req, UnauthorizedException, UseGuards} from
 
 import {RegisterRequest, LoginRequest, RefreshRequest} from '../../requests'
 
-import {User} from '../../models/user.model'
+import {User} from '../../entities/user.entity'
 import * as moment from 'moment'
 
 import {UsersService} from '../users/users.service'
