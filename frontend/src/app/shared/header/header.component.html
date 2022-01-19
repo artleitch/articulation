@@ -1,10 +1,27 @@
 <header>
     <h1>Articulation</h1>
+    <ul>
+        <li>
+            <a [routerLink]="['/']">Dashboard</a>
+        </li>
+        <li>
+            <a [routerLink]="['/', 'conjugations']">Conjugations</a>
+        </li>
+        <li>
+            <a [routerLink]="['/', 'genders']">Genders</a>
+        </li>
+        <li>
+            <a [routerLink]="['/', 'flashcards']">Flashcards</a>
+        </li>
+        <li>
+            <a [routerLink]="['/', 'word']">Create Word</a>
+        </li>
+    </ul>
     <mat-form-field>
         <mat-label>Practice Language</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let lang of practiceLanguages" [value]="lang.value">
-                {{ lang.label }}
+        <mat-select [(value)]="currentPracticeLanguage" (selectionChange)="updatePracticeLanguage($event)">
+            <mat-option *ngFor="let lang of practiceLanguages | async" [value]="lang">
+                {{ lang.languageCode }}
             </mat-option>
         </mat-select>
     </mat-form-field>

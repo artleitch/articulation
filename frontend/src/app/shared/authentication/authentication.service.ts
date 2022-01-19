@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http'
 import {Injectable} from '@angular/core'
 import {Observable, Subscription, timer} from 'rxjs'
-import {AppState} from '../shared/store/app.reducer'
+import {AppState} from '../store/app.reducer'
 import {User} from './authentication.model'
 import {Store} from '@ngrx/store'
 import * as moment from 'moment'
@@ -23,8 +23,6 @@ export const REFRESH_TOKEN_EXPIRY_KEY = 'refreshTokenExpiry'
     providedIn: 'root',
 })
 export class AuthenticationService {
-    // TODO Move this to environment var
-    private BASE_URL = 'http://localhost:3000'
     private _backgroundLoginTimer$?: Subscription
 
     constructor(private http: HttpClient, private store: Store<AppState>) {}
@@ -38,17 +36,17 @@ export class AuthenticationService {
     }
 
     logIn(username: string, password: string): Observable<any> {
-        const url = `${this.BASE_URL}/api/auth/login`
+        const url = `api/auth/login`
         return this.http.post<User>(url, {username, password})
     }
 
     refresh(refreshToken: string): Observable<any> {
-        const url = `${this.BASE_URL}/api/auth/refresh`
+        const url = `api/auth/refresh`
         return this.http.post<User>(url, {refreshToken: refreshToken})
     }
 
     getStatus(): Observable<any> {
-        const url = `${this.BASE_URL}/api/auth/me`
+        const url = `api/auth/me`
         return this.http.get<User>(url)
     }
 

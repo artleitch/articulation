@@ -1,3 +1,5 @@
+import {Language} from '../language/language.model'
+
 export type INotificationOptions = {}
 
 export type Notification = {}
@@ -10,4 +12,5 @@ export class User {
     refreshToken?: string
     accessTokenExpiry?: string
     refreshTokenExpiry?: string
+    practiceLanguages?: Language[]
 }

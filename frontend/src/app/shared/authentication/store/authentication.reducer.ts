@@ -27,6 +27,7 @@ export const authenticationReducer: (
                     accessToken: action.payload.accessToken,
                     refreshToken: action.payload.refreshToken,
                     username: action.payload.username,
+                    id: action.payload.id,
                 },
             }
         }
@@ -57,6 +58,7 @@ export const authenticationReducer: (
                     accessToken: action.payload.accessToken,
                     refreshToken: action.payload.refreshToken,
                     username: action.payload.username,
+                    id: action.payload.id,
                 },
             }
         }

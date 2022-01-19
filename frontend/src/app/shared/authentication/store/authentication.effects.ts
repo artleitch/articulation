@@ -2,8 +2,9 @@ import {HttpErrorResponse, HttpResponseBase} from '@angular/common/http'
 import {Injectable} from '@angular/core'
 import {Actions, createEffect, ofType} from '@ngrx/effects'
 import {of, timer} from 'rxjs'
-import {catchError, map, mergeMap, switchMap, tap} from 'rxjs/operators'
+import {catchError, concatMap, map, mergeMap, switchMap, tap} from 'rxjs/operators'
 import * as NotificationActions from './authentication.actions'
+import * as LanguageActions from '../../language/store/language.actions'
 import {INotificationOptions, User} from '../authentication.model'
 import {Router} from '@angular/router'
 import {AuthenticationService, Tokens} from '../authentication.service'
@@ -20,6 +21,7 @@ export class AuthenticationEffects {
                     map((response: any) => {
                         return new NotificationActions.LoginSuccess({
                             username: response?.data?.user?.username,
+                            id: response?.data?.user?.id,
                             accessToken: response?.data?.payload?.accessToken,
                             refreshToken: response.data.payload.refreshToken,
                             accessTokenExpiry: response.data.payload.accessTokenExpiry,
@@ -48,11 +50,14 @@ export class AuthenticationEffects {
                     }
                     this.authService.storeTokens(tokens)
                     this.authService.setBackgroundLoginTimer()
-                    return this.router.navigate(['/'])
+                    return user
+                }),
+                switchMap(() => {
+                    return [new LanguageActions.GetPracticeLanguages()]
                 })
             )
         },
-        {dispatch: false}
+        {dispatch: true}
     )
 
     Logout = createEffect(
@@ -84,6 +89,7 @@ export class AuthenticationEffects {
                         this.authService.setBackgroundLoginTimer()
                         return new NotificationActions.RefreshTokenSuccess({
                             username: response?.data?.user?.username,
+                            id: response?.data?.user?.id,
                             accessToken: response?.data?.payload?.accessToken,
                             refreshToken: response.data.payload.refreshToken,
                         })
@@ -92,6 +98,16 @@ export class AuthenticationEffects {
             }),
             catchError(() => {
                 return of(new NotificationActions.LoginFailure({}))
+            })
+        )
+    })
+
+    RefreshSuccess = createEffect(() => {
+        return this.actions$.pipe(
+            ofType(NotificationActions.REFRESH_TOKEN_SUCCESS),
+            map((action: NotificationActions.RefreshTokenSuccess) => action.payload),
+            switchMap(() => {
+                return [new LanguageActions.GetPracticeLanguages()]
             })
         )
     })

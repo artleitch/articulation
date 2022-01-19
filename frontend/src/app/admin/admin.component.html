@@ -1,0 +1,26 @@
+<form *ngIf="user" (ngSubmit)="onSubmit()" ngNativeValidate>
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input
+            matInput
+            [(ngModel)]="user.username"
+            name="username"
+            disabled
+            required
+            class="form-control"
+            id="username"
+            placeholder="enter your username"
+        />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Practice Languages</mat-label>
+        <mat-select [compareWith]="compare" [id]="'id'" [(value)]="user.practiceLanguages" multiple>
+            <mat-option *ngFor="let language of languages | async" [value]="language">{{
+                language.languageCode
+            }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button mat-button type="submit">Update</button>
+</form>

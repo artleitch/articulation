@@ -5,9 +5,10 @@ import {MatSelectModule} from '@angular/material/select'
 import {LoginModule} from '../login/login.module'
 import {MatCommonModule} from '@angular/material/core'
 import {MatDialogModule} from '@angular/material/dialog'
+import {RouterModule} from '@angular/router'
 
 @NgModule({
-    imports: [CommonModule, MatSelectModule, MatCommonModule, MatDialogModule],
+    imports: [CommonModule, MatSelectModule, MatCommonModule, MatDialogModule, RouterModule],
     declarations: [HeaderComponent],
     exports: [HeaderComponent],
 })

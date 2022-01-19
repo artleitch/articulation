@@ -1,0 +1,30 @@
+<form (ngSubmit)="onSubmit()" ngNativeValidate *ngIf="word">
+    <mat-form-field>
+        <mat-label>Origin Word</mat-label>
+        <input matInput [(ngModel)]="word.originWord" name="username" required placeholder="Enter the origin word" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Destination Word</mat-label>
+        <input
+            matInput
+            [(ngModel)]="word.destinationWord"
+            name="destinationWord"
+            required
+            placeholder="Enter the destination word"
+        />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Word Type</mat-label>
+        <mat-select [(value)]="word.type">
+            <mat-option *ngFor="let wordType of wordTypes" [value]="wordType">
+                {{ wordType | titlecase }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button mat-button type="submit">Submit</button>
+</form>
+
+{{ this.word | json }}

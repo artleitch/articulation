@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core'
 import {MatDialogRef} from '@angular/material/dialog'
 import {Store} from '@ngrx/store'
-import {User} from 'src/app/authentication/authentication.model'
-import {Login} from 'src/app/authentication/store/authentication.actions'
+import {User} from 'src/app/shared/authentication/authentication.model'
+import {Login} from 'src/app/shared/authentication/store/authentication.actions'
 import {AppState} from '../store/app.reducer'
 
 @Component({
